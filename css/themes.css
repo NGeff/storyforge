@@ -1,0 +1,78 @@
+/* ============================================
+   StoryForge - Theme System
+   Customize or add new themes here
+   ============================================ */
+
+/* Fantasy Theme - Default */
+[data-theme="fantasy"] {
+    --bg-primary: #0f0a1e;
+    --bg-secondary: #1a1333;
+    --bg-gradient: linear-gradient(135deg, #0f0a1e 0%, #1e1245 50%, #0f0a1e 100%);
+    
+    --accent-start: #f59e0b;
+    --accent-end: #ef4444;
+    
+    --text-primary: #f3e8ff;
+    --text-secondary: #a78bfa;
+    
+    --card-bg: rgba(30, 18, 69, 0.85);
+    --border-color: rgba(167, 139, 250, 0.2);
+    
+    --glow-color: rgba(245, 158, 11, 0.3);
+    
+    --theme-preview-bg: linear-gradient(135deg, #1e1245, #0f0a1e);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --bg-primary: #09090b;
+    --bg-secondary: #18181b;
+    --bg-gradient: linear-gradient(135deg, #09090b 0%, #1c1c22 50%, #09090b 100%);
+    
+    --accent-start: #dc2626;
+    --accent-end: #991b1b;
+    
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    
+    --card-bg: rgba(24, 24, 27, 0.9);
+    --border-color: rgba(63, 63, 70, 0.5);
+    
+    --glow-color: rgba(220, 38, 38, 0.2);
+    
+    --theme-preview-bg: linear-gradient(135deg, #1c1c22, #09090b);
+}
+
+/* Celestial Theme */
+[data-theme="celestial"] {
+    --bg-primary: #042f2e;
+    --bg-secondary: #0d3d3b;
+    --bg-gradient: linear-gradient(135deg, #042f2e 0%, #134e4a 50%, #042f2e 100%);
+    
+    --accent-start: #2dd4bf;
+    --accent-end: #06b6d4;
+    
+    --text-primary: #f0fdfa;
+    --text-secondary: #5eead4;
+    
+    --card-bg: rgba(13, 61, 59, 0.85);
+    --border-color: rgba(94, 234, 212, 0.2);
+    
+    --glow-color: rgba(45, 212, 191, 0.25);
+    
+    --theme-preview-bg: linear-gradient(135deg, #134e4a, #042f2e);
+}
+
+/* Background gradient application */
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+}
+
+/* Color utility classes for character icons */
+.color-amber { color: #f59e0b; }
+.color-violet { color: #8b5cf6; }
+.color-emerald { color: #10b981; }
+.color-rose { color: #f43f5e; }
+.color-cyan { color: #06b6d4; }
+.color-orange { color: #f97316; }

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="fantasy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="StoryForge - Motor de Narrativas Interativas. Crie e jogue histórias ramificadas imersivas.">
+    <meta name="author" content="StoryForge">
+    
+    <meta property="og:title" content="StoryForge - Motor de Narrativas Interativas">
+    <meta property="og:description" content="Crie e jogue histórias ramificadas imersivas com sistema de temas, personagens e conquistas.">
+    <meta property="og:type" content="website">
+    
+    <title>StoryForge | Interactive Storytelling Engine</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app">
+        <canvas id="particles" aria-hidden="true"></canvas>
+
+        <section id="screen-menu" class="screen active">
+            <div class="menu-container">
+                <div class="logo-wrapper">
+                    <svg class="logo" viewBox="0 0 100 100" aria-label="StoryForge Logo">
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:var(--accent-start)"/>
+                                <stop offset="100%" style="stop-color:var(--accent-end)"/>
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#logo-gradient)" d="M50 5L90 25v50L50 95 10 75V25L50 5zm0 10L20 30v40l30 15 30-15V30L50 15z"/>
+                        <path fill="url(#logo-gradient)" d="M50 30l20 10v20L50 70 30 60V40l20-10zm0 8l-12 6v12l12 6 12-6V44l-12-6z"/>
+                    </svg>
+                    <h1 class="title">StoryForge</h1>
+                    <p class="subtitle">Interactive Storytelling Engine</p>
+                </div>
+
+                <nav class="menu-actions">
+                    <button class="btn btn-primary" data-action="new-game">
+                        <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                       New Adventure
+                    </button>
+                    <button class="btn btn-secondary" data-action="continue" disabled>
+                        <svg class="btn-icon" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+                        Continue
+                    </button>
+                    <button class="btn btn-ghost" data-action="settings">
+                        <svg class="btn-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        Settings
+                    </button>
+                </nav>
+
+                <footer class="menu-footer">
+                    <span class="version">v1.0.0</span>
+                </footer>
+            </div>
+        </section>
+
+        <section id="screen-character" class="screen">
+            <header class="screen-header">
+                <button class="btn-back" data-action="back" aria-label="Voltar">
+                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                </button>
+                <h2>Choose Your Character</h2>
+            </header>
+
+            <div id="character-grid" class="character-grid">
+            </div>
+
+            <button class="btn btn-primary btn-start" data-action="start-adventure" disabled>
+                Start Adventure 
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </section>
+
+        <section id="screen-game" class="screen">
+            <header class="game-header">
+                <button class="btn-icon-only" data-action="menu" aria-label="Menu">
+                    <svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                </button>
+                
+                <div id="character-badge" class="character-badge">
+                    <span class="badge-icon"></span>
+                    <span class="badge-name"></span>
+                </div>
+
+                <button class="btn-icon-only" data-action="history" aria-label="Histórico">
+                    <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </button>
+            </header>
+
+            <main class="game-content">
+                <div class="narrative-card">
+                    <p id="narrative-text" class="narrative-text"></p>
+                    <span id="typing-cursor" class="typing-cursor" aria-hidden="true"></span>
+                </div>
+
+                <div id="choices-container" class="choices-container">
+                </div>
+            </main>
+
+            <div id="effect-toast" class="effect-toast" aria-live="polite"></div>
+        </section>
+
+        <section id="screen-ending" class="screen">
+            <div class="ending-container">
+                <div class="ending-badge">
+                    <svg class="ending-icon" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <h2 id="ending-title" class="ending-title"></h2>
+                <p id="ending-text" class="ending-text"></p>
+                
+                <div class="ending-actions">
+                    <button class="btn btn-primary" data-action="new-game">
+                        Nova Aventura
+                    </button>
+                    <button class="btn btn-secondary" data-action="view-journey">
+                        View Full Journey 
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div id="modal-settings" class="modal" aria-hidden="true">
+            <div class="modal-backdrop" data-action="close-modal"></div>
+            <div class="modal-content" role="dialog" aria-labelledby="settings-title">
+                <header class="modal-header">
+                    <h3 id="settings-title">Settings</h3>
+                    <button class="btn-close" data-action="close-modal" aria-label="Fechar">
+                        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                </header>
+                
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label class="setting-label">Visual Theme</label>
+                        <div id="theme-options" class="theme-options">
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label" for="text-speed">Text Speed</label>
+                        <select id="text-speed" class="setting-select">
+                            <option value="slow">Slow</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="fast">Fast</option>
+                            <option value="instant">Snapshot</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">Animations</label>
+                        <button id="toggle-animations" class="toggle active" aria-pressed="true">
+                            <span class="toggle-slider"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-history" class="modal" aria-hidden="true">
+            <div class="modal-backdrop" data-action="close-modal"></div>
+            <div class="modal-content modal-large" role="dialog" aria-labelledby="history-title">
+                <header class="modal-header">
+                    <h3 id="history-title">Your Journey</h3>
+                    <button class="btn-close" data-action="close-modal" aria-label="Fechar">
+                        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
+                </header>
+                <div id="history-content" class="modal-body history-timeline">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
